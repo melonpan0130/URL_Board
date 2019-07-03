@@ -1,0 +1,24 @@
+<h1>URL 단축 프로그램</h1>
+<ul>
+	<li th:each="url : ${urls}">
+		<h2><a th:href="@{/url/{id}(id=${url.id})}" th:text="@{/url/{id}(id=${url.id})}"></a></h2>
+		<p>접속 횟수 : <span th:text="${url.count}"></span></p>
+		<p>원본 URL : <a th:href="@{/url/{id}(id=${url.id})}" th:text="${url.originalurl}"></a></p>
+		<button>수정</button>
+		<button>삭제</button>
+	</li>
+</ul>
+<div th:if="${count == 0}">
+	<p>url이 없습니다.</p>
+</div>
+<!-- 게시글이 있는 경우에만 하단의 페이지 이동용 링크 표시 -->
+<div th:unless="${count == 0}">
+	<ol>
+		<li style="display: inline" th:each="i : ${#numbers.sequence(1, count)}">
+			<a th:if="${order.equals('desc')}" th:href="@{/url(page=${i}, order='desc')}" th:text="${i}"></a>
+			<a th:unless="${order.equals('desc')}" th:href="@{/url(page=${i}, order='asc')}" th:text="${i}"></a>
+		</li>
+	</ol>
+</div>
+
+<a th:href="@{/url/write}">단축 링크 생성</a>
