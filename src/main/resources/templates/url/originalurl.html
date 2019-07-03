@@ -1,21 +1,12 @@
 <html>
 	<head>
 		<script>
-			window.onload = function() {/*
-				var count = document.getElementById("count");
-				var countNum = parseInt(count.innerHTML);
-				count.innerHTML = ++countNum;
-				*/
+			window.onload = function() {
 				location.href = document.getElementById("link").href;
 			}
 		</script>
 	</head>
 	<body>	
 		<a id="link" th:href="${url}"></a>
-		<!-- 
-		<form id="form" th:action="@{/url}" method="POST">
-			<div type="text" id="count" name="count" th:text="${count}"></div><br />
-			<input type="submit" value="생성" />
-		</form> -->
 	</body>
 </html>

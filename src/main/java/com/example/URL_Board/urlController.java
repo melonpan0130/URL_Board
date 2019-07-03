@@ -33,17 +33,39 @@ public class urlController {
 		return "redirect:/url";
 	}
 	
-	// 게시글 페이지
+	// url
 	@GetMapping("/{id}")
 	public String getArticle(@PathVariable("id") Integer id, Model m) {
 		Optional<URL> url = repository.findById(id);
 		m.addAttribute("url", url.get().getOriginalurl());
-		int count = url.get().getCount();
-		m.addAttribute("count", count++);
 		
+		// int count = url.get().getCount();
+//  		url.get().setCount(count+1);
+ 		
+ 	// 	System.out.println(count);
+		int count = url.get().getCount() + 1;
+
+		url.get().setCount(count);
+		System.out.println(url.get().getCount());
 		return "url/originalurl"; // load original url page
 	}
-
+	
+	@GetMapping("/modified/{id}")
+	public String modified(@PathVariable("id") Integer id, Model m) {
+		repository.deleteById(id);
+		System.out.println("rewrite "+id);
+		
+		return "url/rewrite";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, Model m) {
+		repository.deleteById(id);
+		System.out.println("delete "+id);
+		
+		return "redirect:/url";
+	}
+	
 	// 게시글 리스팅
 	@GetMapping(value="")
 	public String getArticleList(Model m, 

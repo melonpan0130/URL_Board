@@ -4,10 +4,11 @@
 		<h2><a th:href="@{/url/{id}(id=${url.id})}" th:text="@{/url/{id}(id=${url.id})}"></a></h2>
 		<p>접속 횟수 : <span th:text="${url.count}"></span></p>
 		<p>원본 URL : <a th:href="@{/url/{id}(id=${url.id})}" th:text="${url.originalurl}"></a></p>
-		<button>수정</button>
-		<button>삭제</button>
+		<button><a th:href="@{/url/modified/{id}(id=${url.id})}">수정</a></button>
+		<button><a th:href="@{/url/delete/{id}(id=${url.id})}">삭제</a></button>
 	</li>
 </ul>
+
 <div th:if="${count == 0}">
 	<p>url이 없습니다.</p>
 </div>

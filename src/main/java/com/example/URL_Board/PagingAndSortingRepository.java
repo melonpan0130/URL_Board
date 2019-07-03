@@ -10,4 +10,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface PagingAndSortingRepository<T, ID> extends CrudRepository<T, ID> {
 	Iterable<T> findAll(Sort sort);
 	Page<T> findAll(Pageable pageable);
+	
+	void deleteById(ID id);
+	void delete(T entity);
 }
