@@ -1,7 +1,7 @@
 <h2>URL 작성</h2>
-<form th:action="@{/url}" method="POST">
+<form th:action="@{/url/rewrite/{id}(id=${id})}" method="POST">
 	<label>단축 URL 입력</label> <input type="text" name="originalurl" /><br />
-	<input type="submit" value="생성" />
+	<input type="submit" value="수정" />
 </form>
 
 <a th:href="@{/url}">돌아가기</a>

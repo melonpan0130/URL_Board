@@ -27,41 +27,47 @@ public class urlController {
 	}
 	
 	@PostMapping("")
-	public String postArticle(URL article) {
-		repository.save(article);
+	public String postArticle(URL url) {
+		repository.save(url);
 		
 		return "redirect:/url";
 	}
 	
-	// url
 	@GetMapping("/{id}")
 	public String getArticle(@PathVariable("id") Integer id, Model m) {
 		Optional<URL> url = repository.findById(id);
 		m.addAttribute("url", url.get().getOriginalurl());
 		
-		// int count = url.get().getCount();
-//  		url.get().setCount(count+1);
- 		
- 	// 	System.out.println(count);
-		int count = url.get().getCount() + 1;
-
-		url.get().setCount(count);
-		System.out.println(url.get().getCount());
+		int count = url.get().getCount();
+		url.get().setCount(count+1);
+		repository.save(url.get());
 		return "url/originalurl"; // load original url page
 	}
 	
 	@GetMapping("/modified/{id}")
 	public String modified(@PathVariable("id") Integer id, Model m) {
-		repository.deleteById(id);
-		System.out.println("rewrite "+id);
+		System.out.println("rewrite : "+id);
+		Optional<URL> url = repository.findById(id);
+		url.get().getOriginalurl();
+		
+		m.addAttribute("id", id);
 		
 		return "url/rewrite";
+	}
+	
+	@PostMapping("/rewrite/{id}")
+	public String getReWrite(@PathVariable("id") Integer id, URL url) {
+		Optional<URL> original = repository.findById(id);
+		original.get().setOriginalurl(url.getOriginalurl());
+		
+		repository.save(original.get());
+		
+		return "redirect:/url";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, Model m) {
 		repository.deleteById(id);
-		System.out.println("delete "+id);
 		
 		return "redirect:/url";
 	}
