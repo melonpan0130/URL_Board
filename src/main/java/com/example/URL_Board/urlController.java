@@ -46,11 +46,6 @@ public class urlController {
 	
 	@GetMapping("/modified/{id}")
 	public String modified(@PathVariable("id") Integer id, Model m) {
-		System.out.println("rewrite : "+id);
-		Optional<URL> url = repository.findById(id);
-		url.get().getOriginalurl();
-		
-		m.addAttribute("id", id);
 		
 		return "url/rewrite";
 	}
@@ -81,7 +76,6 @@ public class urlController {
         // 전달 인자 : (0부터 시작하는) 페이지 번호, 페이지당 게시글 개수, 정렬 방법(DESC, ASC), 정렬 칼럼
 		m.addAttribute("urls", repository.findAll(PageRequest.of(page-1, DEFAULT_PAGE_COUNT, 
 				order.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, "id")));
-		
 		m.addAttribute("count", (int) Math.ceil(repository.count() / DEFAULT_PAGE_COUNT.doubleValue()));
 		m.addAttribute("order", order);
 		
